@@ -1,6 +1,6 @@
 CloudMonitor::App.controllers :dashboard do
   
-  get :index do
+  get :index, :map => "/" do
     
     render 'dashboard/index'
   end
