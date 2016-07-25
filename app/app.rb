@@ -4,8 +4,8 @@ module CloudMonitor
     register Padrino::Helpers
 
     register Padrino::Sprockets
-    sprockets :minify => (Padrino.env == :production), :paths => ['assets/javascripts', 'assets/stylesheets', 'assets/images']
-    # sprockets :paths => Padrino::Angularjs.assets_path
+    #sprockets :minify => (Padrino.env == :production), :paths => ['assets/javascripts', 'assets/stylesheets', 'assets/images']
+    sprockets :paths => ['assets/javascripts', 'assets/stylesheets', 'assets/images']
 
     enable :sessions
 
