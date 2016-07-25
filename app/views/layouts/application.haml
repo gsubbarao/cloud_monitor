@@ -1,0 +1,16 @@
+!!! Strict
+%html
+  %head
+    %title= [@title, "Cloud Monitoring"].compact.join(" | ")
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = yield_content :include
+  %body
+    #header
+      %h1 Cloud Monitoring 
+      %ul.menu
+        %li= link_to 'Blog', url_for(:dashboard, :index)
+    #container
+      
+    #footer
+      Copyright &copy; 2016 G SubbaRao
