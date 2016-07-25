@@ -18,6 +18,7 @@ gem 'rake'
 
 # Component requirements
 gem 'padrino-sprockets', :require => 'padrino/sprockets', :git => 'https://github.com/nightsailer/padrino-sprockets.git'
+gem 'therubyracer'
 gem 'uglifier', '2.1.1'
 gem 'yui-compressor', '0.9.6'
 
