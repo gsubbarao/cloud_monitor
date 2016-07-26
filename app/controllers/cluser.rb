@@ -1,7 +1,8 @@
 CloudMonitor::App.controllers :cluster do
   
   get :list do
-  
+    clusters = Cluster.all
+    clusters.to_json
   end
 
   get :node_info, :map => "/cluster/:cluster_id" do

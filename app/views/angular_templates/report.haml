@@ -1,1 +1,21 @@
-REport
+.jumbotron.text-center
+  %h1 {{nodes.length}} Servers Reporting
+  %p{"ng-show"=>"node.shutdown_cpu_load"} This node will be automatically shutdown when it reaches CPU {{node.shutdown_cpu_load}}%
+.container
+  .well{"ng-repeat"=>"node in nodes"}
+    %a{"href"=>"#/node/{{node._id.$oid}}/report", "ng-bind"=>"node.name"}
+  %hr/    
+  %h3 Servers Sorted by CPU
+  .well{"ng-repeat"=>"node in nodes | orderBy : 'report.cpu_used'"}
+    %a{"href"=>"#/node/{{node._id.$oid}}/report", "ng-bind"=>"node.name"}
+    %span.pull-right{"ng-bind"=>"node.report.cpu_used"}
+  %hr/    
+  %h3 Servers Sorted by Memory
+  .well{"ng-repeat"=>"node in nodes | orderBy : 'report.mem_used' "}
+    %a{"href"=>"#/node/{{node._id.$oid}}/report", "ng-bind"=>"node.name"}
+    %span.pull-right{"ng-bind"=>"node.report.mem_used"}
+  %hr/    
+  %h3 Servers Sorted by Disk
+  .well{"ng-repeat"=>"node in nodes | orderBy : 'report.disk_used'"}
+    %a{"href"=>"#/node/{{node._id.$oid}}/report", "ng-bind"=>"node.name"}
+    %span.pull-right{"ng-bind"=>"node.report.disk_used"}

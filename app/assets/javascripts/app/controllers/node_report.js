@@ -6,7 +6,8 @@
   @params -- user
 */
 angular.module('cloudApp').controller('NodeReportCtrl', ["$scope", "$routeParams", "$interval", "$window", "Node", "SystemReport", function($scope, $routeParams, $interval, $window, Node, SystemReport) {
-  
+  var stop;
+
   $scope.host = $window.location.origin
   function getNodeReport(){
     SystemReport.getNodeReport({action_id: $routeParams.node_id}, function(data){
@@ -16,7 +17,7 @@ angular.module('cloudApp').controller('NodeReportCtrl', ["$scope", "$routeParams
 
   function fetchNodeReport(){
     getNodeReport();
-    $interval(function(){
+    stop =$interval(function(){
       getNodeReport();
     }, 6000);
     
@@ -28,6 +29,10 @@ angular.module('cloudApp').controller('NodeReportCtrl', ["$scope", "$routeParams
       fetchNodeReport();
     })
   }
+
+  $scope.$on('$destroy', function() {
+    $interval.cancel(stop);
+  });
 
   loadNodeReport();
 }])
