@@ -4,10 +4,15 @@ CloudMonitor::App.controllers "api/v1" do
   
   post :push_info do
     input_hash = JSON.parse(request.body.read)
-    # input_hash = {:token => "1234", :cpu_used => "10%", :mem_used => "20%", :bandwidth_up => "20kbps", :bandwidth_down => "40kbps", :top_process_cpu => [], :top_process_memory => []};
-    p  SystemInfo.upload_report(input_hash)
-    p  input_hash
-    input_hash.to_json
+    if input_hash["token"]
+      node = Cluster.where(:token => input_hash["token"]).last
+      if node
+        input_hash["node"] = node
+        report = SystemInfo.upload_report(input_hash)
+        return {:status => true, :node => node}.to_json
+      end
+    end
+    return {:status => false}.to_json
   end
 
 end

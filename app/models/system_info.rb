@@ -11,7 +11,7 @@ class SystemInfo
   field :top_process_cpu, :type => Array
   field :top_process_memory, :type => Array
 
-  belongs_to :cluster, index: true
+  belongs_to :node, index: true, :class_name => 'Cluster', :inverse_of => :reports
 
   def self.upload_report(report)
      create!(report)

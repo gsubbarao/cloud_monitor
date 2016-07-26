@@ -1,0 +1,56 @@
+.jumbotron.text-center
+  %h1{"ng-bind"=>"node.name"}
+  %p{"ng-show"=>"node.shutdown_cpu_load"} This node will be automatically shutdown when it reaches CPU {{node.shutdown_cpu_load}}%
+.container{"ng-hide"=>"node.report.cpu_used"}
+  Please run below steps to configure your System
+  %ul
+    %li 
+      %span Please install cloud_monitor_agent gem with running: 
+      %code gem install cloud_monitor_agent 
+    %li 
+      %span Please run below ruby script after installing cloud_monitor_agent gem 
+  %pre.prettyprint.linenums.languague-css 
+    \# Code snippet to run as agent
+    require 'cloud_monitor_agent'
+    API_URL = "{{host}}/api/v1/push_info"
+    CLOUD_TOKEN = "{{node.token}}"
+    DELAY = 60
+
+    cloud_agent = CloudMonitorAgent.new(API_URL, CLOUD_TOKEN, DELAY)
+
+    cloud_agent.send_report
+
+.container{"ng-show"=>"node.report.cpu_used"}
+  .well CPU Load: {{node.report.cpu_used}}%
+  .well Memory Load: {{node.report.mem_used}}%
+  .well Disk Used: {{node.report.disk_used}}%
+  .well Bandwidth Up: {{node.report.bandwidth_up}} Kbps
+  .well Bandwidth Down: {{node.report.bandwidth_down}} Kbps
+
+  %hr/    
+  %h3 Top 10 Process by CPU load
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Id
+        %th Process
+        %th CPU %
+    %tbody
+      %tr{"ng-repeat"=>"process in node.report.top_process_cpu"}
+        %td{"ng-bind"=>"$index+1"}
+        %td{"ng-bind"=>"process[0]"}
+        %td{"ng-bind"=>"process[1]"}
+  %hr/    
+
+  %h3 Top 10 Process by Memory load
+  %table.table.table-hover
+    %thead
+      %tr
+        %th Id
+        %th Process
+        %th Memory %
+    %tbody
+      %tr{"ng-repeat"=>"process in node.report.top_process_memory"}
+        %td{"ng-bind"=>"$index+1"}
+        %td{"ng-bind"=>"process[0]"}
+        %td{"ng-bind"=>"process[1]"}

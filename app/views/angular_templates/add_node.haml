@@ -1,0 +1,12 @@
+%form{"ng-submit"=>"addNode()", "name"=>"nodeForm"}
+  %fieldset.form-group
+    %label{:for => "exampleInputEmail1"} 
+      Node Name
+      %small.text-danger *
+    %input#exampleInputEmail1.form-control{:placeholder => "Enter Node Name", :type => "text", "ng-model"=>"node.name", "ng-required"=>"true"}/
+
+    %label{:for => "exampleInputEmail1"} 
+      Node Shutdown Cpu Load %
+    %input#exampleInputEmail1.form-control{:placeholder => "Enter Shutdown Cpu Load between 1 to 100", :type => "number", "ng-model"=>"node.shutdown_cpu_load", "ng-min"=>1, "ng-max"=>"100",  "ng-class"=>"{ 'has-error' : nodeForm.shutdown_cpu_load.$invalid}"}/
+
+  %button.btn.btn-primary{:type => "submit", "ng-disabled"=>"nodeForm.$invalid"} Submit

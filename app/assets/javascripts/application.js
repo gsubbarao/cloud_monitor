@@ -11,5 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+
 //= require angular
+//= require angular-resource
+//= require angular-route
 //= require_tree .
